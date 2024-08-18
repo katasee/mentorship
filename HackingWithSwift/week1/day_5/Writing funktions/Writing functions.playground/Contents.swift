@@ -1,4 +1,4 @@
-func printHelp () {
+func printHelp() {
     let message = """
 You need turn on geolocation in the settings
 """
@@ -6,16 +6,16 @@ You need turn on geolocation in the settings
 }
 printHelp()
 
-func dayForGym () {
+func dayForGym() {
     print("Monday, Tuesday, Friday")
     print("Sunday and Saturday")
 }
 dayForGym()
 
-func paymantError () {
+func paymentError() {
     let message = """
 Try again latter
 """
     print(message)
 }
-paymantError()
+paymentError()
