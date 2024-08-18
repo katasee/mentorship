@@ -14,6 +14,7 @@ print("Hello")
 
 let numbers = [1, 2, 3, 4, 5]
 var random: [Int]
+
 repeat {
     random = numbers.shuffled()
 } while random == numbers
