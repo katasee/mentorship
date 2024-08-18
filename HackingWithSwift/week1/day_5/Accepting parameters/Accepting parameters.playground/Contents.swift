@@ -1,5 +1,5 @@
-func example (number: Int) {
-    print(number*number/2)
+func example(number: Int) {
+    print(number * number / 2)
 }
 example(number: 50)
 
