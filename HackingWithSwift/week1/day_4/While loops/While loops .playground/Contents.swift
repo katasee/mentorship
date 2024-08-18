@@ -1,14 +1,18 @@
-var  number = 1
-
-while number >= 20 {
-    print (number)
-    number += 1
+var number: Int = 5
+while number < 10 {
+    print(number)
+    number += 2
 }
-print ("redy to fight")
 
-var count = 0
+var price: Int = 100
+while price < 120 {
+    
+    print ("it's possible to buy")
+    price += 2
+}
 
-while count <= 3 {
-    print("Count is \(count)")
-    count += 2
+var page: Int = 0
+while page <= 5 {
+    page += 1
+    print("I'm reading page \(page).")
 }

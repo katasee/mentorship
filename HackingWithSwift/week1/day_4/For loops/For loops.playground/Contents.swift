@@ -1,26 +1,18 @@
 let names = ["Anton", "Vlad", "Mykola", "Ivan"]
-
 for name in names {
     print ("\(name) is Barcelona players")
 }
 
-
-
 let albums = ["Red", "1989", "Reputation"]
-
 for album in albums {
     print("\(album) is on Apple Music")
 }
-let cocunt = 1...3
-for _ in cocunt {
-    print("There's no place like home.")
-}
-let count = 1..<5
 
-for number in count {
-    print ("last number is \(number)")
+let products = ["iPhone", "Macbook", "iPad", "Airpods"]
+for device in products {
+    print("\(device) is a apple product")
 }
 
-for number in [2, 3, 5] {
-    print("\(number) is a prime number.")
+for a in 1...10 {
+        print("10 x \(a) is \(10 * a)")
 }
