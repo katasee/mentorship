@@ -12,10 +12,10 @@ func dayForGym () {
 }
 dayForGym()
 
-func PaymantError () {
+func paymantError () {
     let message = """
 Try again latter
 """
     print(message)
 }
-PaymantError()
+paymantError()
