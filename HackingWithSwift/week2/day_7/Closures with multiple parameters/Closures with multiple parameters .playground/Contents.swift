@@ -1,10 +1,10 @@
-func coocking(Ingredient: (String, Int, String, Int) -> String) {
+func cooking(ingredient: (_ firstItem: String, _ firstQuantity: Int, _ secondItem: String, _ secondQuantity: Int) -> String) {
     print("I will cook pasta carbonara")
-    let recipe = Ingredient("pasta",100,"beacon",150)
+    let recipe = ingredient("pasta",100,"beacon",150)
     print(recipe)
     print("Bon apetit")
 }
-coocking {
+cooking {
     "For carbonara I need \($1)g of \($0) and \($3)g of \($2) "
 }
 
