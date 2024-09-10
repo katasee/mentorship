@@ -1,14 +1,14 @@
- struct Drivers {
+struct Drivers {
     var season: String
     var amout: Int {
-        didSet{
+        didSet {
             print("at the \(season) we have \(amout)  couriers")
         }
     }
 }
-    
-    var drivers = Drivers(season: "autumn", amout: 600)
-    drivers.amout = 650
+
+var drivers = Drivers(season: "autumn", amout: 600)
+drivers.amout = 650
 drivers.season = "summer"
 drivers.amout = 500
 drivers.season = "winter"

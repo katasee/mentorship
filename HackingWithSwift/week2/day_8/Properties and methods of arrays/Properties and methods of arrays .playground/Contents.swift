@@ -4,6 +4,3 @@ device.append("iPad")
 device.firstIndex(of: "iPad")
 print(device.sorted())
 device.remove(at: 0)
-
-
-

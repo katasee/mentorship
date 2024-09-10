@@ -15,7 +15,7 @@ print(leoMessi.clubnNow)
 
 struct Investition {
     var years: Int
-    var investmentPlan: String{
+    var investmentPlan: String {
         if years < 5 {
             return "Crypto"
         } else {

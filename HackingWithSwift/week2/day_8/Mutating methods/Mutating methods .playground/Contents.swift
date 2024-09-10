@@ -1,7 +1,7 @@
-struct Apple{
+struct Apple {
     var date: Int
     
-    mutating func presentation (){
+    mutating func presentation() {
         date = 8
     }
 }
@@ -35,7 +35,7 @@ print(investition)
 struct BankAccount {
     var balance : Int
     mutating func payForFood(amout: Int){
-      balance = 1200
+        balance = 1200
         balance -= amout
     }
 }
