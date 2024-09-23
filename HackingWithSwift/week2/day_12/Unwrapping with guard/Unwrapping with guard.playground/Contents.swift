@@ -2,9 +2,9 @@ func person(_ age: Int?) {
     guard let unwrapped = age else {
         print("You must to write your age")
         return
-    
-}
-print ("Hi, \(unwrapped)")
+        
+    }
+    print ("Hi, \(unwrapped)")
 }
 
 func job(_ firm: String?) {
@@ -12,7 +12,7 @@ func job(_ firm: String?) {
         print("You need to send your CV")
         return
     }
-print("If you want to apply \(favourite)")
+    print("If you want to apply \(favourite)")
 }
 
 var myUsername: String?
@@ -23,6 +23,6 @@ myUsername = "Vidro"
 
 func logIn () {
     guard let myUsername = myUsername else { return }
-    }
+}
 print("my login is \(myUsername)")
 logIn()

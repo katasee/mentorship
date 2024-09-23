@@ -1,10 +1,12 @@
 enum transactionError: Error {
     case noMoney
 }
+
 func makeTransaction (balance: Int) throws -> Bool {
     if balance <= 100 {
         throw transactionError.noMoney
     }
+    
     return true
 }
 
@@ -24,11 +26,14 @@ if let result = try? makeTransaction(balance: 99) {
 enum priceError: Error {
     case invalidPrice
 }
+
 func buyProducts (_ price: String) throws -> Int {
     guard let dollars = Int(price) else {
         throw priceError.invalidPrice
     }
+    
     return dollars
 }
+
 let resault = try? buyProducts("100")
 let nilResault = try? buyProducts("sto")
