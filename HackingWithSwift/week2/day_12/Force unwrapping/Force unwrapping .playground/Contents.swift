@@ -1,46 +1,43 @@
 import Foundation
-
-func chipsFlovors() -> String? {
-    let str = "5"
-    let num = Int(str)!
-    return nil
-}
-
-func years(_age: Int?) -> Int {
-    let age = "24"
-    guard let myAge = Int(age) else {
-        print("Hello")
-        return 22
-    }
-    return 0
-}
-
-func getInfoAboutSalary() -> String? {
+func ExtraTask(_:String) {
     
-    let salary = 100
-    let strSalary: String = String(salary)
+    func ConvertNum() {
+        let str = "5"
+        let num = Int(str)
+        if let num = num {
+            print("Hello")
+        }
+        guard let num = num else { return }
+        print(num)
+    }
     
-    if salary < 150 {
-        print("It's bad sallary")
-        return nil
-    } else {
-        print("It's good salary")
-        return strSalary
+    func ConvertAge() {
+        let age = "24"
+        let myAge = Int(age)
+        if let myAge = myAge {
+            print("My age")
+        }
+        guard let myAge = myAge else { return }
+        print(myAge)
+    }
+    
+    func ConvertSalary() {
+        let salary: Int? = 100
+        let strSalary = (salary)
+        if let strSalary = strSalary {
+            print("My salary")
+        }
+        guard let strSalary = strSalary else { return }
+        print(strSalary)
     }
 }
 
-if let salaryInfo: String = getInfoAboutSalary() {
-    print("Salary info: \(salaryInfo)")
-} else {
-    print("No salary information available.")
-}
-
-
-func web(_ page: String?) {
-    let url = URL(string: "https://chatgpt.com")!
-    guard let unwrapped = page else {
-        print("Need connect to this page: \(url)")
-        return
+func ConvertUrl () {
+    let url = URL(string: "https://chatgpt.com")
+    if let url = url {
+        print(url)
     }
+    guard let url = url else { return }
+    print(url)
 }
 
