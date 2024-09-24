@@ -13,7 +13,6 @@ struct ContentView: View {
     @Query private var items: [Item]
     
     var body: some View {
-        
         VStack {
             HStack {
                 Text("First app")
@@ -23,15 +22,14 @@ struct ContentView: View {
                     .frame(width: 32, height: 32)
             }
             
-                Button("Read more") {
-                }
-                .padding(24)
-                .background(Color.red)
-                .foregroundStyle(Color.black)
+            Button("Read more") {
             }
+            .padding(24)
+            .background(Color.red)
+            .foregroundStyle(Color.black)
         }
     }
-
+}
 
 #Preview {
     ContentView()
