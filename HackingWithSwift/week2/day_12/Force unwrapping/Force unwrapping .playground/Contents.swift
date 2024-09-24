@@ -1,7 +1,6 @@
 import Foundation
-func ExtraTask(_:String) {
     
-    func ConvertNum() {
+    func сonvertNum() {
         let str = "5"
         let num = Int(str)
         if let num = num {
@@ -11,7 +10,7 @@ func ExtraTask(_:String) {
         print(num)
     }
     
-    func ConvertAge() {
+    func сonvertAge() {
         let age = "24"
         let myAge = Int(age)
         if let myAge = myAge {
@@ -21,7 +20,7 @@ func ExtraTask(_:String) {
         print(myAge)
     }
     
-    func ConvertSalary() {
+    func сonvertSalary() {
         let salary: Int? = 100
         let strSalary = (salary)
         if let strSalary = strSalary {
@@ -30,9 +29,9 @@ func ExtraTask(_:String) {
         guard let strSalary = strSalary else { return }
         print(strSalary)
     }
-}
 
-func ConvertUrl () {
+
+func сonvertUrl () {
     let url = URL(string: "https://chatgpt.com")
     if let url = url {
         print(url)
