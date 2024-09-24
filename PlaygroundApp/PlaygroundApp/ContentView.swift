@@ -15,20 +15,23 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            Text("First app ") .font(.largeTitle) + Text(Image(systemName: "person.crop.circle"))
-                .font(.largeTitle)
-            
             HStack {
+                Text("First app")
+                    .font(.title)
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+            }
+            
                 Button("Read more") {
                 }
-                .padding(30)
+                .padding(24)
                 .background(Color.red)
-                .foregroundColor(.black)
-                
+                .foregroundStyle(Color.black)
             }
         }
     }
-}
+
 
 #Preview {
     ContentView()
