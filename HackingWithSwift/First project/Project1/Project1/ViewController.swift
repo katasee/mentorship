@@ -8,6 +8,7 @@
 import UIKit
 
 class ViewController: UITableViewController {
+    
     var pictures = [String]()
     
     override func viewDidLoad() {
@@ -23,12 +24,10 @@ class ViewController: UITableViewController {
     
         for item in items {
             if item.hasPrefix("nssl") {
-                
                 pictures.append(item)
-            
-
             }
         }
+        pictures.sort()
         print(pictures)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
