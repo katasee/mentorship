@@ -21,14 +21,12 @@ class ViewController: UITableViewController {
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
         
-    
         for item in items {
             if item.hasPrefix("nssl") {
                 pictures.append(item)
             }
         }
         pictures.sort()
-        print(pictures)
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pictures.count
@@ -45,7 +43,6 @@ class ViewController: UITableViewController {
             let currentImageIndex = indexPath.row + 1
             let numberOfImages = pictures.count
             
-          //  title = "\(currentImageIndex) of \(numberOfImages)"
             vc.imageTitle = "\(currentImageIndex) of \(numberOfImages)"
         
             vc.selectedImage = pictures[currentImageIndex]
@@ -54,4 +51,3 @@ class ViewController: UITableViewController {
         }
     }
 }
-
