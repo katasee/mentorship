@@ -56,7 +56,7 @@ struct ContentView: View {
             NavigationStack{
                 Form {
                     Section ("Curreency convert") {
-                        TextField("Enter amout", value: $amount, format: .number)
+                        TextField("Enter amout", value: $amount, format: .currency(code: currencyToExchange))
                             .keyboardType(.decimalPad)
                     }
                     Section {
@@ -71,16 +71,16 @@ struct ContentView: View {
                         Picker("TO", selection: $currencyExchanged) {
                             ForEach (currency, id:\.self) {
                                 Text($0)
-                                    .onChange(of: currencyExchanged) { newValue in
+                                    .onChange (of: currencyExchanged) { newValue in
                                         convert()
                                     }
                             }
                         }
-                        }
+                    }
                     Section ("Conversion") {
-                        Text(amount, format: .number)
-                            
-                            
+                        Text(convertToAmount, format: .currency(code: (currencyExchanged)))
+                        
+                        
                     }
                     .pickerStyle(.menu)
                     
@@ -88,11 +88,13 @@ struct ContentView: View {
                 .navigationTitle("Exchange24")
             }
         }
+        .onChange (of: amount) { newValue in
+            convert()
+        }
     }
+    
+    
 }
-
-
-
 
 #Preview {
     ContentView()
