@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var currencyToExchange = "USD"
     @State private var currencyExchanged = "EUR"
     @State private var amount: Double = 0
+    
+    @State private var convertToAmount: Double = 0
     var currency = ["USD", "EUR", "PLN"]
     
     let usd = ["USD": 1.1, "EUR": 1.0, "PLN": 4.3]
@@ -20,31 +22,31 @@ struct ContentView: View {
     func convert () {
         if currencyToExchange == "USD" && currencyExchanged == "EUR" {
             guard let rate = usd["EUR"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "USD" && currencyExchanged == "PLN" {
             guard let rate = usd["PLN"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "USD" && currencyExchanged == "USD" {
             guard let rate = usd["USD"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "EUR" && currencyExchanged == "EUR" {
             guard let rate = eur["EUR"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "EUR" && currencyExchanged == "PLN" {
             guard let rate = eur["PLN"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "EUR" && currencyExchanged == "USD" {
             guard let rate = eur["USD"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "PLN" && currencyExchanged == "PLN" {
             guard let rate = pln["PLN"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "PLN" && currencyExchanged == "USD" {
             guard let rate = pln["USD"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
         } else if currencyToExchange == "PLN" && currencyExchanged == "EUR" {
             guard let rate = pln["EUR"] else { return }
-            amount = rate * amount
+            convertToAmount = rate * amount
             return
         }
     }
