@@ -8,18 +8,113 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var currencyToExchange = "USD"
-    @State private var currencyExchanged = "EUR"
+    @State private var currencyToExchange: String = "USD"
+    @State private var currencyExchanged: String = "EUR"
     @State private var amount: Double = 0
     
     @State private var convertToAmount: Double = 0
-    var currency = ["USD", "EUR", "PLN"]
+    var currency: [String] = ["USD", "EUR", "PLN"]
     
-    let usd = ["USD": 1.0, "EUR": 1.1, "PLN": 4.3]
-    let eur = ["USD": 0.91, "EUR": 1.0, "PLN": 3.9]
-    let pln = ["USD": 0.26, "EUR": 0.23, "PLN": 1.0]
+    let usd: [String: Double] = ["USD": 1.0, "EUR": 1.1, "PLN": 4.3]
+    let eur: [String: Double] = ["USD": 0.91, "EUR": 1.0, "PLN": 3.9]
+    let pln: [String: Double] = ["USD": 0.26, "EUR": 0.23, "PLN": 1.0]
     
-    func convert () {
+    var body: some View {
+        
+        NavigationStack {
+            ZStack{
+                Color(.secondarySystemBackground)
+                    .ignoresSafeArea()
+                ScrollView {
+                    VStack{
+                        VStack {
+                            titleOfTextField()
+                            buildTextField()
+                        }
+                        
+                        VStack (spacing: 1) {
+                            firstPicker
+                            Divider()
+                            secondPicker
+                        }
+                        
+                        VStack {
+                            resaultTitle
+                            resault
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                }
+                .navigationTitle("Exchange 24")
+            }
+        }
+    }
+    
+    func titleOfTextField() -> some View {
+        Text("Curreency convert")
+            .font(.subheadline)
+            .foregroundStyle(Color.gray)
+            .frame(width: 350, height: 15,alignment: .leading)
+    }
+    
+    func buildTextField() -> some View {
+        TextField("Enter amout", value: $amount, format: .currency(code: currencyToExchange))
+            .keyboardType(.decimalPad)
+            .padding(11)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.white))
+    }
+    
+    var firstPicker: some View {
+        Picker("FROM", selection: $currencyToExchange) {
+            ForEach(currency, id: \.self) { currency in
+                Text(currency)
+            }
+        }
+        .onChange(of: currencyToExchange) { newValue in
+            convert()
+        }
+        .frame(maxWidth: .infinity)
+        .padding(7)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white))
+    }
+    
+    var secondPicker: some View {
+        Picker("TO", selection: $currencyExchanged) {
+            ForEach(currency, id: \.self) { currency in
+                Text(currency)
+            }
+        }
+        .onChange(of: currencyExchanged) { newValue in
+            convert()
+        }
+        .frame(maxWidth: .infinity)
+        .padding(7)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white))
+    }
+    
+    var resaultTitle: some View {
+        Text("Conversion")
+            .font(.subheadline)
+            .foregroundStyle(Color.gray)
+            .frame(width: 350, height: 15,alignment: .leading)
+    }
+    
+    var resault: some View {
+        Text(convertToAmount, format: .currency(code: (currencyExchanged)))
+            .frame(width: 350, height: 30,alignment: .leading)
+            .padding(7)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.white))
+    }
+    
+    private func convert () {
         if currencyToExchange == "USD" && currencyExchanged == "EUR" {
             guard let rate = usd["EUR"] else { return }
             convertToAmount = rate * amount
@@ -50,95 +145,7 @@ struct ContentView: View {
             return
         }
     }
-    
-    let background = Color(UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1.0))
-    var body: some View {
-        
-        NavigationStack {
-            ZStack{
-                background
-                    .ignoresSafeArea()
-                ScrollView {
-                    VStack{
-                        VStack {
-                            Spacer(minLength: 32)
-//                            Section ("Curreency convert") {
-                                Text("Curreency convert")
-                                .font(.subheadline)
-                                .foregroundStyle(Color.gray)
-                                .frame(width: 350, height: 15,alignment: .leading)
-
-                                TextField("Enter amout", value: $amount, format: .currency(code: currencyToExchange))
-                                    .keyboardType(.decimalPad)
-                                    .padding(11)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color.white))
-                            
-                            }
-                        }
-                    
-                    VStack (spacing: 1) {
-                            Picker("FROM", selection: $currencyToExchange) {
-                                ForEach (currency, id:\.self) {
-                                    Text($0)
-                                        .onChange(of: currencyToExchange) { newValue in
-                                            convert()
-                                        }
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(7)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.white))
-                            
-                        Divider()
-                        
-                            Picker("TO", selection: $currencyExchanged) {
-                                ForEach (currency, id:\.self) {
-                                    Text($0)
-                                        .onChange (of: currencyExchanged) { newValue in
-                                            convert()
-                                            
-                                        }
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(7)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.white))
-                            
-                        
-                        
-                    }
-                        VStack {
-                            Text("Conversion")
-                            .font(.subheadline)
-                            .foregroundStyle(Color.gray)
-                            .frame(width: 350, height: 15,alignment: .leading)
-                            Text(convertToAmount, format: .currency(code: (currencyExchanged)))
-                                .frame(width: 350, height: 30,alignment: .leading)
-                                .padding(7)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color.white))
-                            
-                                
-                                
-                        }
-//                        .pickerStyle(.menu)
-                    }
-             .padding(.horizontal, 24)
-                }
-                .navigationTitle("Exchange 24")
-                
-            }
-            
-        }
-    }
-
+}
 
 #Preview {
     ContentView()
