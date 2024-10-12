@@ -11,10 +11,9 @@ struct ContentView: View {
     @State private var currencyToExchange: String = "USD"
     @State private var currencyExchanged: String = "EUR"
     @State private var amount: Double = 0
-    
     @State private var convertToAmount: Double = 0
-    var currency: [String] = ["USD", "EUR", "PLN"]
     
+    var currency: [String] = ["USD", "EUR", "PLN"]
     let usd: [String: Double] = ["USD": 1.0, "EUR": 1.1, "PLN": 4.3]
     let eur: [String: Double] = ["USD": 0.91, "EUR": 1.0, "PLN": 3.9]
     let pln: [String: Double] = ["USD": 0.26, "EUR": 0.23, "PLN": 1.0]
@@ -32,15 +31,15 @@ struct ContentView: View {
                             buildTextField()
                         }
                         
-                        VStack (spacing: 1) {
+                        VStack(spacing: 1) {
                             firstPicker
                             Divider()
                             secondPicker
                         }
                         
                         VStack {
-                            resaultTitle
-                            resault
+                            resultTitle
+                            result
                         }
                     }
                     .padding(.horizontal, 24)
@@ -58,7 +57,7 @@ struct ContentView: View {
     }
     
     func buildTextField() -> some View {
-        TextField("Enter amout", value: $amount, format: .currency(code: currencyToExchange))
+        TextField("Enter amount", value: $amount, format: .currency(code: currencyToExchange))
             .keyboardType(.decimalPad)
             .padding(11)
             .background(
@@ -72,7 +71,7 @@ struct ContentView: View {
                 Text(currency)
             }
         }
-        .onChange(of: currencyToExchange) { newValue in
+        .onChange(of: currencyToExchange) { _ in
             convert()
         }
         .frame(maxWidth: .infinity)
@@ -88,7 +87,7 @@ struct ContentView: View {
                 Text(currency)
             }
         }
-        .onChange(of: currencyExchanged) { newValue in
+        .onChange(of: currencyExchanged) { _ in
             convert()
         }
         .frame(maxWidth: .infinity)
@@ -98,14 +97,14 @@ struct ContentView: View {
                 .fill(Color.white))
     }
     
-    var resaultTitle: some View {
+    var resultTitle: some View {
         Text("Conversion")
             .font(.subheadline)
             .foregroundStyle(Color.gray)
             .frame(width: 350, height: 15,alignment: .leading)
     }
     
-    var resault: some View {
+    var result: some View {
         Text(convertToAmount, format: .currency(code: (currencyExchanged)))
             .frame(width: 350, height: 30,alignment: .leading)
             .padding(7)
