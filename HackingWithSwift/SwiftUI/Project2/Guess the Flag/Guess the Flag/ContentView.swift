@@ -20,41 +20,18 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
-            RadialGradient(stops: [
-                .init(color: Color(red: 0.51, green: 0.22, blue:0.85), location: 0.3),
-                .init(color: Color(red: 0.25, green: 0.55, blue:0.5), location: 0.3)
-            ], center: .top, startRadius: 420, endRadius: 700)
-            .ignoresSafeArea()
+            backgroundColor()
             
             VStack {
                 Spacer()
-                Text("Guess the Flag")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.white)
+                guessTheFlag()
                 
                 VStack(spacing: 15) {
                     VStack {
-                        Text("Tap the flag of")
-                            .foregroundStyle(.secondary)
-                            .font(.subheadline.weight(.heavy))
-                        
-                        Text(countries[correctAnswer])
-                            .font(.largeTitle.weight(.semibold))
+                        flagBackground()
+                        flagTitle()
                     }
-                    
-                    ForEach(0..<3) { number in
-                        Button {
-                            flagTapped(number)
-                            counter += 1
-                            if counter == 8 {
-                                restart()
-                            }
-                        } label: {
-                            Image(countries[number])
-                                .clipShape(.capsule)
-                                .shadow(radius: 10)
-                        }
-                    }
+                    button
                 }
                 .frame(maxWidth: .infinity)
                 .padding(20)
@@ -64,9 +41,7 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
                 
-                Text ("Score: \(score)")
-                    .foregroundStyle(.white)
-                    .font(.title.bold())
+                liveScore()
                 
                 Spacer()
             }
@@ -85,6 +60,53 @@ struct ContentView: View {
         } message: {
             Text("Your score is \(score)")
         }
+    }
+    
+    func backgroundColor() -> some View {
+        RadialGradient(stops: [
+            .init(color: Color(red: 0.51, green: 0.22, blue:0.85), location: 0.3),
+            .init(color: Color(red: 0.25, green: 0.55, blue:0.5), location: 0.3)
+        ], center: .top, startRadius: 420, endRadius: 700)
+        .ignoresSafeArea()
+    }
+    
+    func flagBackground() -> some View {
+        Text("Tap the flag of")
+            .foregroundStyle(.secondary)
+            .font(.subheadline.weight(.heavy))
+    }
+    
+    func flagTitle() -> some View {
+        Text(countries[correctAnswer])
+            .font(.largeTitle.weight(.semibold))
+    }
+    
+    func guessTheFlag() -> some View {
+        Text("Guess the Flag")
+            .font(.largeTitle.bold())
+            .foregroundStyle(.white)
+    }
+    
+    var button: some View {
+        ForEach(0..<3) { number in
+            Button {
+                flagTapped(number)
+                counter += 1
+                if counter == 2 {
+                    restart()
+                }
+            } label: {
+                Image(countries[number])
+                    .clipShape(.capsule)
+                    .shadow(radius: 10)
+            }
+        }
+    }
+    
+    func liveScore() -> some View {
+        Text ("Score: \(score)")
+            .foregroundStyle(.white)
+            .font(.title.bold())
     }
     
     func flagTapped(_ number: Int) {
@@ -106,6 +128,7 @@ struct ContentView: View {
     
     func restart () {
         endGame = true
+        showingScore = false
         finalScore = "Your score is \(score)"
         resetGame()
     }
@@ -113,7 +136,6 @@ struct ContentView: View {
     func resetGame() {
         score = 0
         counter = 0
-        showingScore = false
     }
 }
 
