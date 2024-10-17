@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 20
     @FocusState private var amountIsFocused: Bool
+    @State private var usedRedText = false
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
@@ -20,8 +21,8 @@ struct ContentView: View {
         let tipSelection = Double(tipPercentage)
         
         let tipValue = checkAmount / 100 * tipSelection
-        let garandTotal = checkAmount + tipValue
-        let amoutPerPerson = garandTotal / peopleCount
+        let grandTotal = checkAmount + tipValue
+        let amoutPerPerson = grandTotal / peopleCount
         
         return amoutPerPerson
     }
@@ -30,10 +31,10 @@ struct ContentView: View {
         let tipSelection = Double(tipPercentage)
         
         let tipValue = checkAmount / 100 * tipSelection
-        let garandTotal = checkAmount + tipValue
-        return garandTotal
+        let grandTotal = checkAmount + tipValue
+        return grandTotal
     }
-    
+
     var body: some View {
         NavigationStack{
             Form {
@@ -55,6 +56,7 @@ struct ContentView: View {
                         ForEach(0..<101) {
                             Text($0,format: .percent)
                         }
+               
                     }
                     .pickerStyle(.menu)
                 }
@@ -62,9 +64,10 @@ struct ContentView: View {
                 Section("Amount per person") {
                     Text(totalPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                 }
-                
-                Section("Total amount") {
-                    Text(totalCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    Section("Total amount") {
+                        Text(totalCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+
+                    }
                 }
             }
             
@@ -73,12 +76,19 @@ struct ContentView: View {
                 if amountIsFocused {
                     Button("Done") {
                         amountIsFocused = false
+                        
+                        
                     }
                 }
             }
         }
+    
+    
+    
     }
-}
+    
+    
+
 
 #Preview {
     ContentView()
