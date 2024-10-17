@@ -6,6 +6,31 @@
 //
 
 import SwiftUI
+struct FlagImage: View {
+    var flagName: String
+    
+    var body: some View {
+        Image(flagName)
+            .clipShape(.capsule)
+            .shadow(radius: 10)
+    }
+}
+
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundStyle(.yellow)
+            .bold()
+            .shadow(radius: 5)
+    }
+}
+
+extension View {
+    func titleStyle () -> some View {
+        modifier(Title())
+    }
+}
 
 struct ContentView: View {
     @State private var countries: [String] = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
