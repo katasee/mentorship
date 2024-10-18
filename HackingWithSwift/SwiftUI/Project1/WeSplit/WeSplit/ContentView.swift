@@ -34,7 +34,7 @@ struct ContentView: View {
         let grandTotal = checkAmount + tipValue
         return grandTotal
     }
-
+    
     var body: some View {
         NavigationStack{
             Form {
@@ -56,7 +56,9 @@ struct ContentView: View {
                         ForEach(0..<101) {
                             Text($0,format: .percent)
                         }
-               
+                        .onChange(of: tipPercentage) { newValue in
+                            usedRedText = newValue == 0
+                        }
                     }
                     .pickerStyle(.menu)
                 }
@@ -64,31 +66,23 @@ struct ContentView: View {
                 Section("Amount per person") {
                     Text(totalPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                 }
-                    Section("Total amount") {
-                        Text(totalCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-
-                    }
+                
+                Section("Total amount") {
+                    Text(totalCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                 }
+                .foregroundColor(usedRedText ? .red : .black)
             }
-            
             .navigationTitle("WeSplit")
-            .toolbar {
-                if amountIsFocused {
-                    Button("Done") {
-                        amountIsFocused = false
-                        
-                        
-                    }
+        }
+        .toolbar {
+            if amountIsFocused {
+                Button("Done") {
+                    amountIsFocused = false
                 }
             }
         }
-    
-    
-    
     }
-    
-    
-
+}
 
 #Preview {
     ContentView()
