@@ -34,7 +34,7 @@ struct ContentView: View {
         let grandTotal = checkAmount + tipValue
         return grandTotal
     }
-
+    
     var body: some View {
         NavigationStack{
             Form {
@@ -66,10 +66,9 @@ struct ContentView: View {
                 Section("Amount per person") {
                     Text(totalPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                 }
-                    Section("Total amount") {
-                        Text(totalCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-
-                    }
+                
+                Section("Total amount") {
+                    Text(totalCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                 }
                 .foregroundColor(usedRedText ? .red : .black)
             }
@@ -82,13 +81,8 @@ struct ContentView: View {
                 }
             }
         }
-    
-    
-    
     }
-    
-    
-
+}
 
 #Preview {
     ContentView()
