@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var endGame: Bool = false
     @State private var counter: Int = 0
     @State private var finalScore: String = ""
-    
+        
     var body: some View {
         ZStack{
             backgroundColor()
@@ -25,6 +25,7 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 guessTheFlag()
+                    .titleStyle()
                 
                 VStack(spacing: 15) {
                     VStack {
@@ -83,8 +84,6 @@ struct ContentView: View {
     
     func guessTheFlag() -> some View {
         Text("Guess the Flag")
-            .font(.largeTitle.bold())
-            .foregroundStyle(.white)
     }
     
     var button: some View {
@@ -96,9 +95,7 @@ struct ContentView: View {
                     restart()
                 }
             } label: {
-                Image(countries[number])
-                    .clipShape(.capsule)
-                    .shadow(radius: 10)
+                FlagImage(flagName: countries[number])
             }
         }
     }
