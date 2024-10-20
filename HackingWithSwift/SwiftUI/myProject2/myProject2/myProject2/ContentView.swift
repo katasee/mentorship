@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
     @State private var computerOption: Int = Int.random(in: 0...2)
     @State private var rightСhoice: Bool = false
