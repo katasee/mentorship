@@ -6,67 +6,60 @@
 //
 
 import SwiftUI
+
 struct ContentView: View {
-    @State private var computerСhoice: Int = Int.random(in: 0...2)
+    @State private var computerOption: Int = Int.random(in: 0...2)
     @State private var rightСhoice: Bool = false
     @State private var optionToСhoice: [String] = ["✊", "✋", "✌️"].shuffled()
     @State private var score: Int = 0
-    @State private var myChoise: String = ""
+    @State private var myChoiсe: String = ""
     @State private var counter: Int = 0
     @State private var endGame: Bool = false
     @State private var finalScore: String = ""
     
     var body: some View {
-        NavigationStack{
-            ZStack{
+        NavigationStack {
+            ZStack {
                 LinearGradient(colors:[.blue, .yellow], startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 
                 VStack(spacing: 50) {
                     Spacer()
-                    VStack  {
-                        compChoose()
-                        goodChoise()
+                    VStack {
+                        computerСhoiceText()
+                        goodСhoiceText()
                     }
                     .bold()
                     .font(.system(size: 20))
                     
-                    VStack{
-                        myturn()
+                    VStack {
+                        myTurnLabel()
                     }
-                    
-                    HStack (spacing: 15) {
+
                         HStack {
-                            Button("✊"){
-                                counter += 1
-                                rock()
+                            ForEach(0..<3) { index in
+                                
+                                Button {
+                                    if index == 0 {
+                                        rock()
+                                    } else if index == 0 {
+                                        paper()
+                                    }
+                                    else {
+                                        scissons()
+                                    }
+                                } label: {
+                                    Text(optionToСhoice[index])
+                                        .padding(20)
+                                        .background(.black)
+                                        .foregroundStyle(.white)
+                                        .clipShape(.buttonBorder)
+                                        .font(.system(size: 70))
+                                }
                             }
-                            .padding(20)
-                            .background(Color.black)
-                            .clipShape(.buttonBorder)
-                            .font(.system(size: 70))
-                            
-                            Button("✋") {
-                                counter += 1
-                                paper()
-                            }
-                            .padding(20)
-                            .background(.black)
-                            .clipShape(.buttonBorder)
-                            .font(.system(size: 70))
-                            
-                            Button("✌️"){
-                                counter += 1
-                                scissons()
-                            }
-                            .padding(20)
-                            .background(.black)
-                            .clipShape(.buttonBorder)
-                            .font(.system(size: 70))
                         }
-                    }
                     
-                    VStack{
+                    VStack {
                         Spacer()
                         Text("Score: \(score)")
                     }
@@ -82,70 +75,13 @@ struct ContentView: View {
         }
     }
     
-    func compChoose() -> some View {
-        Text(optionToСhoice[computerСhoice])
+    func computerСhoiceText() -> some View {
+        Text(optionToСhoice[computerOption])
             .font(.largeTitle.weight(.semibold))
     }
     
-    func rock()  {
-        if computerСhoice == 0 {
-            myChoise = "✊"
-            score += 1
-            newGame()
-            rightСhoice = true
-        }
-        else if computerСhoice == 1 {
-            myChoise = "✊"
-            score -= 1
-            newGame()
-        } else {
-            myChoise = "✊"
-            score += 1
-            newGame()
-            rightСhoice = true
-        }
-    }
-    
-    func paper() {
-        if computerСhoice == 0 {
-            myChoise = "✋"
-            score += 1
-            newGame()
-            rightСhoice = true
-        }
-        else if computerСhoice == 1 {
-            myChoise = "✋"
-            score += 1
-            newGame()
-            rightСhoice = true
-        } else {
-            myChoise = "✋"
-            score -= 1
-            newGame()
-        }
-    }
-    
-    func scissons() {
-        if computerСhoice == 0 {
-            myChoise = "✌️"
-            score -= 1
-            newGame()
-        }
-        else if computerСhoice == 1 {
-            myChoise = "✌️"
-            score += 1
-            newGame()
-            rightСhoice = true
-        } else {
-            myChoise = "✌️"
-            score += 1
-            newGame()
-            rightСhoice = true
-        }
-    }
-    
-    func myturn() -> some View {
-        Text("\(myChoise)")
+    func myTurnLabel() -> some View {
+        Text("\(myChoiсe)")
             .font(.system(size: 150))
             .padding(25)
             .background(Color.secondary)
@@ -153,7 +89,7 @@ struct ContentView: View {
             .shadow(radius: 40)
     }
     
-    func goodChoise() -> some View {
+    func goodСhoiceText() -> some View {
         if rightСhoice == true {
             Text("You win")
         } else {
@@ -161,8 +97,67 @@ struct ContentView: View {
         }
     }
     
+    func rock()  {
+        counter += 1
+        if computerOption == 0 {
+            myChoiсe = "✊"
+            score += 1
+            newGame()
+            rightСhoice = true
+        }
+        else if computerOption == 1 {
+            myChoiсe = "✊"
+            score -= 1
+            newGame()
+        } else {
+            myChoiсe = "✊"
+            score += 1
+            newGame()
+            rightСhoice = true
+        }
+    }
+    
+    func paper() {
+        counter += 1
+        if computerOption == 0 {
+            myChoiсe = "✋"
+            score += 1
+            newGame()
+            rightСhoice = true
+        } else if computerOption == 1 {
+            myChoiсe = "✋"
+            score += 1
+            newGame()
+            rightСhoice = true
+        } else {
+            myChoiсe = "✋"
+            score -= 1
+            newGame()
+        }
+    }
+    
+    func scissons() {
+        counter += 1
+        if computerOption == 0 {
+            myChoiсe = "✌️"
+            score -= 1
+            newGame()
+        }
+        else if computerOption == 1 {
+            myChoiсe = "✌️"
+            score += 1
+            newGame()
+            rightСhoice = true
+        } else {
+            myChoiсe = "✌️"
+            score += 1
+            newGame()
+            rightСhoice = true
+        }
+    }
+    
     func newGame () {
-        computerСhoice = Int.random(in: 0...2)
+        computerOption = Int.random(in: 0...2)
         rightСhoice = false
         if counter == 10 {
             restart()
@@ -180,21 +175,6 @@ struct ContentView: View {
         }
     }
 }
-//        func button() -> some View {
-//            ForEach(0..<3) { number in
-//                Button {
-//                } label: {
-//                    Text(optionToСhoice[number])
-//        .padding(20)
-//        .background(.black)
-//        .foregroundStyle(.white)
-//        .clipShape(.buttonBorder)
-//        .font(.system(size: 70))
-//                }
-//            }
-//        }
-
-
 
 #Preview {
     ContentView()
