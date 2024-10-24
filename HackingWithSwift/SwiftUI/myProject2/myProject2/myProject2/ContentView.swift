@@ -48,14 +48,15 @@ struct ContentView: View {
                                     else {
                                         scissons()
                                     }
-                                } label: {
-                                    Text(optionToСhoice[index])
-                                        .padding(20)
-                                        .background(.black)
-                                        .foregroundStyle(.white)
-                                        .clipShape(.buttonBorder)
-                                        .font(.system(size: 70))
                                 }
+                                label: {
+                                    Text(optionToСhoice[index])
+                                }
+                                .padding(20)
+                                .background(.black)
+                                .foregroundStyle(.white)
+                                .clipShape(.buttonBorder)
+                                .font(.system(size: 70))
                             }
                         }
                     
