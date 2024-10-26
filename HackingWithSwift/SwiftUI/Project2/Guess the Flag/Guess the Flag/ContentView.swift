@@ -17,7 +17,8 @@ struct ContentView: View {
     @State private var endGame: Bool = false
     @State private var counter: Int = 0
     @State private var finalScore: String = ""
-        
+
+
     var body: some View {
         ZStack{
             backgroundColor()

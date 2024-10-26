@@ -2,9 +2,8 @@
 //  FlagImage.swift
 //  Guess the Flag
 //
-//  Created by Katasee on 18/10/2024.
+//  Created by Katasee on 19/10/2024.
 //
-
 import SwiftUI
 
 struct FlagImage: View {
