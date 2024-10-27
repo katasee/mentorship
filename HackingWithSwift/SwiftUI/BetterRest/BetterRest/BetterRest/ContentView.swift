@@ -23,7 +23,7 @@ struct ContentView: View {
         components.minute = 0
         return Calendar.current.date(from: components) ?? .now
     }
-
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -36,8 +36,8 @@ struct ContentView: View {
         }
     }
     
-    var datePicker: some View{
-        Section ("When do you want to wake up?") {
+    var datePicker: some View {
+        Section("When do you want to wake up?") {
             DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
         }
         .onChange(of: wakeUp) {_ in
@@ -55,8 +55,8 @@ struct ContentView: View {
     }
     
     var coffeeAmountPicker: some View {
-        Section ("Daily coffee intake") {
-            Picker ("^[Please enter a cup](inflect: true)", selection: $coffeeAmount) {
+        Section("Daily coffee intake") {
+            Picker("^[Please enter a cup](inflect: true)", selection: $coffeeAmount) {
                 ForEach(0..<20) {
                     Text($0,format: .number)
                 }
@@ -70,15 +70,15 @@ struct ContentView: View {
     var calculate: some View {
         Section("Calculate") {
             HStack {
-                 Text("Your ideal bedtime is")
-                 Spacer()
-                 Text("\(sleepTime)")
-             }
+                Text("Your ideal bedtime is")
+                Spacer()
+                Text("\(sleepTime)")
+            }
             .font(.title2)
-         }
+        }
     }
-     
- func calculateBedTime () {
+    
+    func calculateBedTime() {
         do {
             let config = MLModelConfiguration()
             let model = try SleepCalculator(configuration: config)
