@@ -13,36 +13,36 @@ struct ContentView: View {
     @State private var newWord: String = ""
     @State private var errorTitle: String = ""
     @State private var errorMessage: String = ""
-    @State private var showingError: Bool = false
+    @State private var hasError: Bool = false
     
     var body: some View {
         NavigationStack {
             List {
-                enterWord()
-                useWord()
+                createUserWordSection()
+                showUsedWords()
             }
             .navigationTitle(rootWord)
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
-            .alert(errorTitle, isPresented: $showingError) { } message: {
+            .alert(errorTitle, isPresented: $hasError) { } message: {
                 Text(errorMessage)
             }
             
-            countWords()
+            countUserWords()
                 .toolbar {
-                    Button("Restart", action: restart)
+                    Button("Restart", action: restartGame)
                 }
         }
     }
     
-    func enterWord() -> some View {
+    func createUserWordSection() -> some View {
         Section{
             TextField("Enter your words", text: $newWord)
                 .textInputAutocapitalization(.never)
         }
     }
     
-    func useWord() -> some View {
+    func showUsedWords() -> some View {
         Section {
             ForEach(usedWords, id:\.self) { word in
                 HStack {
@@ -53,7 +53,7 @@ struct ContentView: View {
         }
     }
     
-    func countWords() -> some View {
+    func countUserWords() -> some View {
         Text("Score : \(usedWords.count)")
     }
     
@@ -64,18 +64,18 @@ struct ContentView: View {
             return
         }
         
-        guard isOriginal(word: answer) else {
-            wordError(title: "Word used already", message: "Be more original!")
+        guard checkIfWordIsOriginal(word: answer) else {
+            showErrorMessage(title: "Word used already", message: "Be more original!")
             return
         }
         
-        guard isPossible(word: answer) else {
-            wordError(title: "Word not possible", message: "You can't spell that word from '\(rootWord)'")
+        guard checkIfWordIsPossible(word: answer) else {
+            showErrorMessage(title: "Word not possible", message: "You can't spell that word from '\(rootWord)'")
             return
         }
         
-        guard isReal(word: answer) else {
-            wordError(title: "Word not recognizee", message: "You can't make themup, you know!")
+        guard checkIfWordIsReal(word: answer) else {
+            showErrorMessage(title: "Word not recognizee", message: "You can't make themup, you know!")
             return
         }
         
@@ -96,11 +96,11 @@ struct ContentView: View {
         fatalError("Could not load start.txt from bundle.")
     }
     
-    func isOriginal(word: String) -> Bool {
+    func checkIfWordIsOriginal(word: String) -> Bool {
         !usedWords.contains(word)
     }
     
-    func isPossible(word: String) -> Bool {
+    func checkIfWordIsPossible(word: String) -> Bool {
         var tempWord = rootWord
         
         for letter in word {
@@ -113,7 +113,7 @@ struct ContentView: View {
         return true
     }
     
-    func isReal(word: String) -> Bool {
+    func checkIfWordIsReal(word: String) -> Bool {
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
@@ -121,13 +121,13 @@ struct ContentView: View {
         return misspelledRange.location == NSNotFound
     }
     
-    func wordError(title: String, message: String) {
+    func showErrorMessage(title: String, message: String) {
         errorTitle = title
         errorMessage = message
-        showingError = true
+        hasError = true
     }
     
-    func restart() {
+    func restartGame() {
         startGame()
         usedWords.removeAll()
     }
