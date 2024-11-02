@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+extension View {
+    
+    @ViewBuilder
+    public func applyIf<Content: View>(
+        _ condition: () -> Bool,
+        @ViewBuilder modifiers: (Self) -> Content
+    ) -> some View {
+        if condition() {
+            modifiers(self)
+        } else {
+            self
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var countries: [String] = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
     @State private var correctAnswer: Int = Int.random (in: 0...2)
@@ -17,8 +32,9 @@ struct ContentView: View {
     @State private var endGame: Bool = false
     @State private var counter: Int = 0
     @State private var finalScore: String = ""
-
-
+    @State private var animationAmount: Double = 0.0
+    @State private var currentIndex: Int? = nil
+    
     var body: some View {
         ZStack{
             backgroundColor()
@@ -88,15 +104,23 @@ struct ContentView: View {
     }
     
     var button: some View {
-        ForEach(0..<3) { number in
+        ForEach(0..<3)  { number in
             Button {
                 flagTapped(number)
+                currentIndex = number
+                animationAmount += 360
                 counter += 1
-                if counter == 2 {
+                if counter == 4 {
                     restart()
                 }
             } label: {
                 FlagImage(flagName: countries[number])
+                    .applyIf ({ number == number}) { view in
+                        view
+                            .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 1, z: 0))
+                    }
+                    .opacity(currentIndex == nil || number == currentIndex ? 1 : 0.25)
+                    .scaleEffect(currentIndex == nil || number == currentIndex ? 1: 0.75)
             }
         }
     }
@@ -122,9 +146,10 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        currentIndex = nil
     }
     
-    func restart () {
+    func restart() {
         endGame = true
         showingScore = false
         finalScore = "Your score is \(score)"
@@ -134,6 +159,7 @@ struct ContentView: View {
     func resetGame() {
         score = 0
         counter = 0
+        currentIndex = nil
     }
 }
 
